@@ -1,0 +1,34 @@
+name: WhatsApp Web Node Automation
+
+on:
+  schedule:
+    - cron: '0 8 * * *' # Triggers completely automatically every single day at 8:00 AM UTC
+  workflow_dispatch:   # Adds a manual button so you can start it yourself right now
+
+jobs:
+  run-matrix:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone Code Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: |
+        npm install
+        npx playwright install chromium
+
+    - name: Execute Warmup Engine
+      env:
+        PROXY_LIST: ${{ secrets.PROXY_LIST }}
+        PHONE_MATRIX: ${{ secrets.PHONE_MATRIX }}
+        WHATSAPP_SESSIONS: ${{ secrets.WHATSAPP_SESSIONS }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPO_NAME: ${{ github.repository }}
+      run: node warmup.js
+
