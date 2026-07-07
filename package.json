@@ -1,0 +1,13 @@
+{
+  "name": "whatsapp-node-warmup",
+  "version": "1.0.0",
+  "main": "warmup.js",
+  "dependencies": {
+    "playwright": "^1.49.0",
+    "playwright-extra": "^2.1.2",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "tweetnacl": "^1.0.3",
+    "tweetnacl-util": "^0.15.1"
+  }
+}
+
